@@ -23,6 +23,7 @@ export default function BottomTabNavigator() {
         name="NewDeck"
         component={NewDeckScreen}
         options={{
+          title: 'New Deck',
           tabBarIcon: ({ color }) => (
             <Ionicons color={color} name="add-circle" size={24} />
           ),
