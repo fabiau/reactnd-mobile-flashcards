@@ -17,12 +17,19 @@ const decks = [
   },
 ];
 
-export default function DecksScreen() {
+export default function DecksScreen({ navigation }) {
+  const handleDeckPress = (deck) =>
+    navigation.navigate('DeckDetail', { deckId: deck.id });
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <Headline>My Decks</Headline>
-        <DeckList style={styles.decks} decks={decks} />
+        <DeckList
+          style={styles.decks}
+          decks={decks}
+          onDeckPress={handleDeckPress}
+        />
       </View>
     </SafeAreaView>
   );

@@ -5,6 +5,7 @@ import { withTheme } from 'react-native-paper';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import NotFoundScreen from '../screens/NotFoundScreen';
+import DeckDetailScreen from '../screens/DeckDetailScreen';
 
 function Navigation({ theme }) {
   return (
@@ -20,8 +21,19 @@ const Stack = createStackNavigator();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Root"
+        component={BottomTabNavigator}
+      />
+
+      <Stack.Screen
+        name="DeckDetail"
+        component={DeckDetailScreen}
+        options={{ title: 'Deck Detail' }}
+      />
+
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}

@@ -11,6 +11,11 @@ export default {
               DecksScreen: 'decks',
             },
           },
+          DeckDetail: {
+            screens: {
+              DeckDetail: 'deck-detail',
+            },
+          },
           Create: {
             screens: {
               CreateScreen: 'create',

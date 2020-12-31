@@ -1,12 +1,23 @@
 import React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
+import {
+  FlatList,
+  StyleSheet,
+  TouchableNativeFeedback,
+  View,
+} from 'react-native';
 import { Card, Title } from 'react-native-paper';
 
-function renderItem({ item: deck }) {
+function renderItem({ deck, onPress }) {
   return (
-    <Card style={styles.card}>
-      <Card.Title title={deck.title} subtitle={`${deck.cards.length} Cards`} />
-    </Card>
+    <TouchableNativeFeedback onPress={onPress}>
+      <Card style={styles.card}>
+        <Card.Title
+          title={deck.title}
+          subtitle={`${deck.cards.length} Cards`}
+        />
+      </Card>
+    </TouchableNativeFeedback>
   );
 }
 
@@ -22,7 +33,7 @@ function renderEmpty() {
   );
 }
 
-export default function DeckList({ decks, style }) {
+export default function DeckList({ decks, onDeckPress, style }) {
   if (!decks.length) {
     return renderEmpty();
   }
@@ -31,11 +42,24 @@ export default function DeckList({ decks, style }) {
     <FlatList
       style={style}
       data={decks}
-      renderItem={renderItem}
+      renderItem={({ item }) =>
+        renderItem({ deck: item, onPress: () => onDeckPress(item) })
+      }
       keyExtractor={extractKey}
     />
   );
 }
+
+DeckList.propTypes = {
+  decks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      cards: PropTypes.array.isRequired,
+    }).isRequired
+  ).isRequired,
+  onDeckPress: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   card: {
