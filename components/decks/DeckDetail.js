@@ -10,7 +10,7 @@ import {
 } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 
-function DeckDetail({ theme, onAddQuestionPress }) {
+function DeckDetail({ theme, onStartQuizPress, onAddQuestionPress }) {
   return (
     <View style={styles.container}>
       <Headline style={styles.text}>🌟 Astronomy</Headline>
@@ -26,6 +26,7 @@ function DeckDetail({ theme, onAddQuestionPress }) {
 
       <View style={styles.actions}>
         <Button
+          onPress={onStartQuizPress}
           style={styles.button}
           mode="contained"
           icon={(props) => <Ionicons name="play" {...props} />}
@@ -48,6 +49,7 @@ function DeckDetail({ theme, onAddQuestionPress }) {
 
 DeckDetail.propTypes = {
   onAddQuestionPress: PropTypes.func.isRequired,
+  onStartQuizPress: PropTypes.func.isRequired,
 };
 
 export default withTheme(DeckDetail);

@@ -4,13 +4,20 @@ import DeckDetail from '../components/decks/DeckDetail';
 
 export default function DeckDetailScreen({ route, navigation }) {
   const deckId = route.params.deckId;
-  const handleQuestionCardPress = () => {
+  const handleAddQuestionPress = () => {
     navigation.navigate('AddQuestion', { deckId });
+  };
+
+  const handleStarQuizPress = () => {
+    navigation.navigate('QuestionsQuiz', { deckId });
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <DeckDetail onAddQuestionPress={handleQuestionCardPress} />
+      <DeckDetail
+        onAddQuestionPress={handleAddQuestionPress}
+        onStartQuizPress={handleStarQuizPress}
+      />
     </SafeAreaView>
   );
 }

@@ -1,5 +1,5 @@
 import { DarkTheme, DefaultTheme } from 'react-native-paper';
-import { INDIGO, PINK, RED } from '../constants/palette';
+import { GREEN, INDIGO, PINK, RED } from '../constants/palette';
 
 export const ColorSchemeNames = Object.freeze({
   Light: 'light',
@@ -12,6 +12,7 @@ export default {
     primary: INDIGO[600],
     accent: PINK[500],
     danger: RED[600],
+    success: GREEN[600],
   },
 
   [ColorSchemeNames.Dark]: {
@@ -19,5 +20,6 @@ export default {
     primary: INDIGO[600],
     accent: PINK[500],
     danger: RED[500],
+    success: GREEN[500],
   },
 };

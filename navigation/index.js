@@ -6,6 +6,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import DeckDetailScreen from '../screens/DeckDetailScreen';
 import AddQuestionScreen from '../screens/AddQuestionScreen';
+import QuestionsQuizScreen from '../screens/QuestionsQuizScreen';
 
 function Navigation({ theme }) {
   return (
@@ -38,6 +39,12 @@ function RootNavigator() {
         name="AddQuestion"
         component={AddQuestionScreen}
         options={{ title: 'Add Question' }}
+      />
+
+      <Stack.Screen
+        name="QuestionsQuiz"
+        component={QuestionsQuizScreen}
+        options={{ title: 'Quiz' }}
       />
 
       <Stack.Screen
