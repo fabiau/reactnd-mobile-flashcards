@@ -16,9 +16,9 @@ export default {
               DeckDetail: 'deck-detail',
             },
           },
-          Create: {
+          NewDeck: {
             screens: {
-              CreateScreen: 'create',
+              NewDeckScreen: 'new-deck',
             },
           },
         },

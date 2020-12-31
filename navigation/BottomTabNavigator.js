@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import CreateScreen from '../screens/CreateScreen';
+import NewDeckScreen from '../screens/NewDeckScreen';
 import DecksScreen from '../screens/DecksScreen';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -20,8 +20,8 @@ export default function BottomTabNavigator() {
       />
 
       <Tab.Screen
-        name="Create"
-        component={CreateScreen}
+        name="NewDeck"
+        component={NewDeckScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <Ionicons color={color} name="add-circle" size={24} />
