@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { HelperText, TextInput } from 'react-native-paper';
 
-export default function FormTextInput({ error, inputOptions }) {
+export default function FormTextInput({ error, inputOptions, style }) {
   const hasError = Boolean(error);
 
   return (
-    <View>
-      <TextInput error={hasError} {...inputOptions} />
+    <View style={style}>
+      <TextInput error={hasError} {...inputOptions} mode="flat" />
       <HelperText visible={hasError} type="error" padding="none">
         {error}
       </HelperText>

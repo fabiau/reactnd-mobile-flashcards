@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
 import {
   Button,
@@ -9,7 +10,7 @@ import {
 } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 
-function DeckDetail({ theme }) {
+function DeckDetail({ theme, onAddQuestionPress }) {
   return (
     <View style={styles.container}>
       <Headline style={styles.text}>🌟 Astronomy</Headline>
@@ -33,16 +34,21 @@ function DeckDetail({ theme }) {
         </Button>
 
         <Button
+          onPress={onAddQuestionPress}
           style={styles.button}
           mode="outlined"
           icon={(props) => <Ionicons name="md-add-circle" {...props} />}
         >
-          Add Card
+          Add Question
         </Button>
       </View>
     </View>
   );
 }
+
+DeckDetail.propTypes = {
+  onAddQuestionPress: PropTypes.func.isRequired,
+};
 
 export default withTheme(DeckDetail);
 

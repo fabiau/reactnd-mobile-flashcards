@@ -14,7 +14,7 @@ const NewDeckSchema = Yup.object().shape({
     .required('Please inform a title for the deck.'),
 });
 
-export default function NewDeckForm({ onSubmit }) {
+export default function NewDeckForm({ style, onSubmit }) {
   return (
     <Formik
       initialValues={{ title: '' }}
@@ -29,7 +29,7 @@ export default function NewDeckForm({ onSubmit }) {
         errors,
         touched,
       }) => (
-        <View style={styles.form}>
+        <View style={[styles.form, style]}>
           <FormTextInput
             error={touched.title && errors.title}
             inputOptions={{

@@ -1,15 +1,17 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Headline, Paragraph } from 'react-native-paper';
+import { Title } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import NewDeckForm from '../components/decks/NewDeckForm';
+import AddCardForm from '../components/cards/AddQuestionForm';
 
-export default function CreateScreen() {
+export default function AddQuestionScreen({ route }) {
+  const deckId = route.params.deckId;
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Headline>New Deck</Headline>
-        <NewDeckForm
+        <Title>Add to 🌟 Astronomy</Title>
+        <AddCardForm
           style={styles.form}
           onSubmit={() => console.log('Submitted!')}
         />
