@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Title } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AddCardForm from '../components/cards/AddQuestionForm';
+import AddCardForm from '../components/questions/AddQuestionForm';
 
 export default function AddQuestionScreen({ route }) {
   const deckId = route.params.deckId;
