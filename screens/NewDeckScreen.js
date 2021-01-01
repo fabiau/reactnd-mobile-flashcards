@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Headline, Paragraph, Snackbar } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,31 +8,79 @@ import { addDeck } from '../actions/decks';
 import NewDeckForm from '../components/decks/NewDeckForm';
 import createErrorSnackbarContainer from '../components/shared/ErrorSnackbarContainer';
 import UIStateKeys from '../constants/UIStateKeys';
-import { getLoaderByKey } from '../selectors/ui';
+import { getErrorByKey, getLoaderByKey } from '../selectors/ui';
 
 const ErrorSnackbarContainer = createErrorSnackbarContainer(
   UIStateKeys.NewDeck
 );
 
-function NewDeckScreen({ error, loading, addDeck }) {
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <Headline>New Deck</Headline>
-        <NewDeckForm
-          style={styles.form}
-          loading={loading}
-          onSubmit={(values) => addDeck(values)}
-        />
+class NewDeckScreen extends Component {
+  state = {
+    unsubscribe: null,
+    visible: false,
+  };
 
-        <ErrorSnackbarContainer />
-      </View>
-    </SafeAreaView>
-  );
+  componentDidMount() {
+    const focusUnsubscribe = this.props.navigation.addListener('focus', () => {
+      this.setState(() => ({
+        visible: true,
+      }));
+    });
+
+    const blurUnsubscribe = this.props.navigation.addListener('blur', () => {
+      this.setState(() => ({
+        visible: false,
+      }));
+    });
+
+    this.setState(() => ({
+      unsubscribe: () => {
+        focusUnsubscribe();
+        blurUnsubscribe();
+      },
+    }));
+  }
+
+  componentWillUnmount() {
+    this.state.unsubscribe?.();
+  }
+
+  componentDidUpdate(prevProps) {
+    // Check if it completed the submit action
+    if (
+      prevProps.loading === true &&
+      this.props.loading === false &&
+      !this.props.error
+    ) {
+      this.props.navigation.goBack();
+    }
+  }
+
+  render() {
+    const { error, loading, addDeck } = this.props;
+
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.container}>
+          <Headline>New Deck</Headline>
+          {this.state.visible && (
+            <NewDeckForm
+              style={styles.form}
+              loading={loading}
+              onSubmit={(values) => addDeck(values)}
+            />
+          )}
+
+          <ErrorSnackbarContainer />
+        </View>
+      </SafeAreaView>
+    );
+  }
 }
 
 function mapStateToProps(state) {
   return {
+    error: getErrorByKey(state, { key: UIStateKeys.NewDeck }),
     loading: getLoaderByKey(state, { key: UIStateKeys.NewDeck }),
   };
 }
