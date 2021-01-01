@@ -26,7 +26,7 @@ export default function App() {
       <SafeAreaProvider>
         <AppPaperThemeProvider>
           <Navigation />
-          <StatusBar style="light" />
+          <StatusBar style="auto" />
         </AppPaperThemeProvider>
       </SafeAreaProvider>
     </ReactReduxProvider>
