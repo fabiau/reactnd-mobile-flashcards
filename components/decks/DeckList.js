@@ -22,7 +22,7 @@ function renderItem({ deck, onPress }) {
 }
 
 function extractKey(deck) {
-  return deck.key;
+  return deck.id;
 }
 
 function renderEmpty() {
