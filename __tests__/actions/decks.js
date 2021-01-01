@@ -1,4 +1,11 @@
-import { addDeck, addedDeck, ADDED_DECK, ADD_DECK } from '../../actions/decks';
+import {
+  addDeck,
+  addedDeck,
+  ADDED_DECK,
+  ADD_DECK,
+  hydrateDecks,
+  HYDRATE_DECKS,
+} from '../../actions/decks';
 
 describe('actions::decks', () => {
   test('addDeck', () => {
@@ -41,6 +48,27 @@ describe('actions::decks', () => {
         id: '50a37892-b6a8-4513-a4bc-88387fc12ea3',
         title: 'Lorem Ipsum',
         timestamp: 312321,
+      },
+    });
+  });
+
+  test('hydrateDecks', () => {
+    let action = hydrateDecks({
+      '50a37892-b6a8-4513-a4bc-88387fc12ea3': {
+        id: '50a37892-b6a8-4513-a4bc-88387fc12ea3',
+        title: 'Lorem Ipsum',
+        timestamp: 312321,
+      },
+    });
+
+    expect(action).toEqual({
+      type: HYDRATE_DECKS,
+      payload: {
+        '50a37892-b6a8-4513-a4bc-88387fc12ea3': {
+          id: '50a37892-b6a8-4513-a4bc-88387fc12ea3',
+          title: 'Lorem Ipsum',
+          timestamp: 312321,
+        },
       },
     });
   });

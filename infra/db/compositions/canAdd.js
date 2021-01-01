@@ -11,11 +11,11 @@ export function _uuid() {
 }
 
 export default function canAdd() {
-  return function (model) {
+  return function ({ storageKey }) {
     return {
       async add(entry) {
         const newEntry = { ...entry, id: _uuid() };
-        await addEntry(model.storageKey, newEntry);
+        await addEntry(storageKey, newEntry);
         return newEntry;
       },
     };
