@@ -1,6 +1,7 @@
 package com.reactndmobileflashcards;
 
 import android.os.Bundle;
+import android.content.res.Configuration;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -37,5 +38,11 @@ public class MainActivity extends ReactActivity {
                 return new RNGestureHandlerEnabledRootView(MainActivity.this);
             }
         };
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        getReactInstanceManager().onConfigurationChanged(this, newConfig);
     }
 }
