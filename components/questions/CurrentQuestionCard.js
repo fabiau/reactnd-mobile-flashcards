@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import CardFlip from 'react-native-card-flip';
 import { Ionicons } from '@expo/vector-icons';
-import { Card, Paragraph } from 'react-native-paper';
+import { Card, Paragraph, withTheme } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 
-export default class CurrentQuizCard extends Component {
+class CurrentQuizCard extends Component {
   constructor(props) {
     super(props);
     this.card = null;
@@ -19,7 +19,11 @@ export default class CurrentQuizCard extends Component {
       <Card>
         <Card.Title
           left={(props) => (
-            <Ionicons name="md-help-circle-outline" {...props} />
+            <Ionicons
+              color={this.props.theme.colors.text}
+              name="md-help-circle-outline"
+              {...props}
+            />
           )}
           title="Question #1"
         />
@@ -34,7 +38,13 @@ export default class CurrentQuizCard extends Component {
     return (
       <Card onPress={this.flipCard}>
         <Card.Title
-          left={(props) => <Ionicons name="md-bulb-outline" {...props} />}
+          left={(props) => (
+            <Ionicons
+              color={this.props.theme.colors.text}
+              name="md-bulb-outline"
+              {...props}
+            />
+          )}
           title="Answer #1"
         />
         <Card.Content>
@@ -53,6 +63,8 @@ export default class CurrentQuizCard extends Component {
     );
   }
 }
+
+export default withTheme(CurrentQuizCard);
 
 const styles = StyleSheet.create({
   cardContainer: {
