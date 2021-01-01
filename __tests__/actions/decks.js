@@ -19,21 +19,28 @@ describe('actions::decks', () => {
     let action = addedDeck({
       id: '61774805-16b9-4832-93f1-fcb493dd937a',
       title: 'Deck 1',
+      timestamp: 321312321321,
     });
     expect(action).toEqual({
       type: ADDED_DECK,
-      payload: { id: '61774805-16b9-4832-93f1-fcb493dd937a', title: 'Deck 1' },
+      payload: {
+        id: '61774805-16b9-4832-93f1-fcb493dd937a',
+        title: 'Deck 1',
+        timestamp: 321312321321,
+      },
     });
 
     action = addedDeck({
       id: '50a37892-b6a8-4513-a4bc-88387fc12ea3',
       title: 'Lorem Ipsum',
+      timestamp: 312321,
     });
     expect(action).toEqual({
       type: ADDED_DECK,
       payload: {
         id: '50a37892-b6a8-4513-a4bc-88387fc12ea3',
         title: 'Lorem Ipsum',
+        timestamp: 312321,
       },
     });
   });

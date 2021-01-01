@@ -8,9 +8,9 @@ export function addDeck({ title }) {
   };
 }
 
-export function addedDeck({ id, title }) {
+export function addedDeck({ id, title, timestamp }) {
   return {
     type: ADDED_DECK,
-    payload: { id, title },
+    payload: { id, title, timestamp },
   };
 }

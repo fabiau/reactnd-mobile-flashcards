@@ -11,7 +11,8 @@ export function* handleAddDeck(action) {
   yield put(setError({ key: UIStateKeys.NewDeck, value: null }));
 
   try {
-    let newModel = { ...action.payload, questions: [] };
+    const timestamp = yield call(Date.now);
+    let newModel = { ...action.payload, timestamp, questions: [] };
     newModel = yield call(decksDbModel.add, newModel);
     yield put(decksActions.addedDeck(newModel));
     // TODO: Navigate

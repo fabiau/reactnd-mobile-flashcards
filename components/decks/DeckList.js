@@ -14,7 +14,7 @@ function renderItem({ deck, onPress }) {
       <Card style={styles.card}>
         <Card.Title
           title={deck.title}
-          subtitle={`${deck.cards.length} Cards`}
+          subtitle={`${deck.questions.length} Questions`}
         />
       </Card>
     </TouchableNativeFeedback>
@@ -55,7 +55,7 @@ DeckList.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      cards: PropTypes.array.isRequired,
+      questions: PropTypes.array.isRequired,
     }).isRequired
   ).isRequired,
   onDeckPress: PropTypes.func.isRequired,

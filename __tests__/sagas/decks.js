@@ -24,10 +24,15 @@ describe('sagas::decks', () => {
         );
       });
 
+      it('gets the current timestamp', () => {
+        expect(iterator.next().value).toEqual(call(Date.now));
+      });
+
       it('calls decksDbModel.add with the payload deck', () => {
-        expect(iterator.next().value).toEqual(
+        expect(iterator.next(1231232131).value).toEqual(
           call(decksDbModel.add, {
             title: 'Lorem Ipsum',
+            timestamp: 1231232131,
             questions: [],
           })
         );
@@ -35,9 +40,21 @@ describe('sagas::decks', () => {
 
       it('adds the deck to the store', () => {
         expect(
-          iterator.next({ id: '1', title: 'Lorem Ipsum', questions: [] }).value
+          iterator.next({
+            id: '1',
+            title: 'Lorem Ipsum',
+            timestamp: 1231232131,
+            questions: [],
+          }).value
         ).toEqual(
-          put(addedDeck({ id: '1', title: 'Lorem Ipsum', questions: [] }))
+          put(
+            addedDeck({
+              id: '1',
+              title: 'Lorem Ipsum',
+              timestamp: 1231232131,
+              questions: [],
+            })
+          )
         );
       });
 
@@ -63,10 +80,15 @@ describe('sagas::decks', () => {
         );
       });
 
+      it('gets the current timestamp', () => {
+        expect(iterator.next().value).toEqual(call(Date.now));
+      });
+
       it('calls decksDbModel.add with the payload deck', () => {
-        expect(iterator.next().value).toEqual(
+        expect(iterator.next(1231232131).value).toEqual(
           call(decksDbModel.add, {
             title: 'Lorem Ipsum',
+            timestamp: 1231232131,
             questions: [],
           })
         );
