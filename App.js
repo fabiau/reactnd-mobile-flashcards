@@ -5,19 +5,28 @@ import createSagaMiddleware from 'redux-saga';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider as ReactReduxProvider } from 'react-redux';
-import reactotron from './ReactotronConfig';
 
 import rootSaga from './sagas';
 import reducers from './reducers';
 import Navigation from './navigation';
 import { AppPaperThemeProvider } from './theme';
 
-const sagaMonitor = reactotron.createSagaMonitor();
-const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
-const store = createStore(
-  reducers,
-  compose(applyMiddleware(sagaMiddleware), reactotron.createEnhancer())
-);
+let sagaMiddleware;
+let store;
+
+if (__DEV__) {
+  const reactotron = require('./ReactotronConfig').default;
+  const sagaMonitor = reactotron.createSagaMonitor();
+  sagaMiddleware = createSagaMiddleware({ sagaMonitor });
+  store = createStore(
+    reducers,
+    compose(applyMiddleware(sagaMiddleware), reactotron.createEnhancer())
+  );
+} else {
+  sagaMiddleware = createSagaMiddleware();
+  store = createStore(reducers, applyMiddleware(sagaMiddleware));
+}
+
 sagaMiddleware.run(rootSaga);
 
 export default function App() {
