@@ -14,7 +14,7 @@ const NewDeckSchema = Yup.object().shape({
     .required('Please inform a title for the deck.'),
 });
 
-export default function NewDeckForm({ style, onSubmit }) {
+export default function NewDeckForm({ style, loading, onSubmit }) {
   return (
     <Formik
       initialValues={{ title: '' }}
@@ -28,36 +28,43 @@ export default function NewDeckForm({ style, onSubmit }) {
         values,
         errors,
         touched,
-      }) => (
-        <View style={[styles.form, style]}>
-          <FormTextInput
-            error={touched.title && errors.title}
-            inputOptions={{
-              autoFocus: true,
-              maxLength: 50,
-              label: 'Title',
-              placeholder: 'My Awesome Deck',
-              onChangeText: handleChange('title'),
-              onBlur: handleBlur('title'),
-              value: values.title,
-            }}
-          />
+      }) => {
+        const hasTitleError = touched.title && errors.title;
 
-          <Button
-            style={styles.actions}
-            mode="contained"
-            onPress={handleSubmit}
-            icon={(props) => <Ionicons name="checkmark-sharp" {...props} />}
-          >
-            Submit
-          </Button>
-        </View>
-      )}
+        return (
+          <View style={[styles.form, style]}>
+            <FormTextInput
+              error={hasTitleError}
+              inputOptions={{
+                autoFocus: true,
+                maxLength: 50,
+                label: 'Title',
+                placeholder: 'My Awesome Deck',
+                onChangeText: handleChange('title'),
+                onBlur: handleBlur('title'),
+                value: values.title,
+              }}
+            />
+
+            <Button
+              style={styles.actions}
+              loading={loading}
+              disabled={loading || hasTitleError}
+              mode="contained"
+              onPress={handleSubmit}
+              icon={(props) => <Ionicons name="checkmark-sharp" {...props} />}
+            >
+              {loading ? 'Submitting' : 'Submit'}
+            </Button>
+          </View>
+        );
+      }}
     </Formik>
   );
 }
 
 NewDeckForm.propTypes = {
+  loading: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
