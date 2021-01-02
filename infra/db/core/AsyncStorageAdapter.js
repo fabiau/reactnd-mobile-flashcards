@@ -40,6 +40,22 @@ export async function removeEntries(storageKey, entriesIds) {
 }
 
 /**
+ * Patches an entry from the entries object for the given key.
+ * @param {string} storageKey The key where the entries are stored.
+ */
+export async function patchEntry(storageKey, { id, ...props }) {
+  const existing = (await getAllEntries())?.[id];
+  if (existing) {
+    return AsyncStorage.mergeItem(
+      storageKey,
+      JSON.stringify({
+        [id]: { ...existing, ...props },
+      })
+    );
+  }
+}
+
+/**
  * Returns the stored value for the given key, which should be an object, or null.
  * @param {string} storageKey The key where the entries are stored.
  */

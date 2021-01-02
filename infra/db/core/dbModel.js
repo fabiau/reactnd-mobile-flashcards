@@ -13,6 +13,7 @@
  * @typedef DbModel
  * @type {object}
  * @property {(entry: any) => Promise<AddedEntry> | undefined} add Adds a new entry.
+ * @property {(entry: AddedEntry) => Promise<void> | undefined} patch Patches an entry.
  * @property {(entryId: string) => Promise<void> | undefined} delete Deletes a single entry.
  * @property {() => Promise<Record<string, AddedEntry> | null> | undefined} getAll Gets all entries. Returns null if there are none or it could not be retrieved.
  * @property {(entriesIds: string[]) => Promise<void> | undefined} multiDelete Deletes multiple entries.

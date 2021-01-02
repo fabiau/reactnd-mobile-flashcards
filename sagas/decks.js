@@ -1,4 +1,4 @@
-import { call, put, takeEvery, takeLeading } from 'redux-saga/effects';
+import { call, put, takeLeading } from 'redux-saga/effects';
 import * as decksActions from '../actions/decks';
 import {
   clearError,

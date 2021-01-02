@@ -1,4 +1,4 @@
-import { ADDED_DECK, HYDRATE_DECKS } from '../actions/decks';
+import { ADDED_DECK, ADDED_DECK_CARD, HYDRATE_DECKS } from '../actions/decks';
 
 export default function decks(state = {}, action) {
   switch (action.type) {
@@ -10,6 +10,16 @@ export default function decks(state = {}, action) {
           cards: [],
         },
       };
+
+    case ADDED_DECK_CARD: {
+      return {
+        ...state,
+        [action.payload.id]: {
+          ...state[action.payload.id],
+          cards: [...state[action.payload.id].cards, action.payload.card],
+        },
+      };
+    }
 
     case HYDRATE_DECKS:
       return {
