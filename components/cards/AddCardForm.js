@@ -18,7 +18,7 @@ const NewDeckSchema = Yup.object().shape({
     .required('Please inform the answer.'),
 });
 
-export default function AddCardForm({ style, onSubmit }) {
+export default function AddCardForm({ style, submitting, onSubmit }) {
   return (
     <Formik
       initialValues={{ question: '', answer: '' }}
@@ -32,47 +32,56 @@ export default function AddCardForm({ style, onSubmit }) {
         values,
         errors,
         touched,
-      }) => (
-        <View style={[styles.form, style]}>
-          <FormTextInput
-            style={styles.field}
-            error={touched.question && errors.question}
-            inputOptions={{
-              maxLength: 200,
-              label: 'Question',
-              onChangeText: handleChange('question'),
-              onBlur: handleBlur('question'),
-              value: values.question,
-            }}
-          />
+      }) => {
+        const hasQuestionError = touched.question && errors.question;
+        const hasAnswerError = touched.answer && errors.answer;
+        const hasError = hasQuestionError || hasAnswerError;
 
-          <FormTextInput
-            style={styles.field}
-            error={touched.answer && errors.answer}
-            inputOptions={{
-              maxLength: 200,
-              label: 'Answer',
-              onChangeText: handleChange('answer'),
-              onBlur: handleBlur('answer'),
-              value: values.answer,
-            }}
-          />
+        return (
+          <View style={[styles.form, style]}>
+            <FormTextInput
+              style={styles.field}
+              error={hasQuestionError}
+              inputOptions={{
+                maxLength: 200,
+                label: 'Question',
+                onChangeText: handleChange('question'),
+                onBlur: handleBlur('question'),
+                value: values.question,
+              }}
+            />
 
-          <Button
-            style={styles.actions}
-            mode="contained"
-            onPress={handleSubmit}
-            icon={(props) => <Ionicons name="checkmark-sharp" {...props} />}
-          >
-            Submit
-          </Button>
-        </View>
-      )}
+            <FormTextInput
+              style={styles.field}
+              error={hasAnswerError}
+              inputOptions={{
+                maxLength: 200,
+                label: 'Answer',
+                onChangeText: handleChange('answer'),
+                onBlur: handleBlur('answer'),
+                value: values.answer,
+              }}
+            />
+
+            <Button
+              style={styles.actions}
+              loading={submitting}
+              disabled={submitting || hasError}
+              mode="contained"
+              onPress={handleSubmit}
+              icon={(props) => <Ionicons name="checkmark-sharp" {...props} />}
+            >
+              {submitting ? 'Submitting' : 'Submit'}
+            </Button>
+          </View>
+        );
+      }}
     </Formik>
   );
 }
 
 AddCardForm.propTypes = {
+  submitting: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
