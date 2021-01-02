@@ -1,6 +1,7 @@
 import { call, put, takeEvery, takeLeading } from 'redux-saga/effects';
 import * as decksActions from '../actions/decks';
 import { setError } from '../actions/ui/errors';
+import { setLatestAdded } from '../actions/ui/latestsAdded';
 import { setLoader } from '../actions/ui/loaders';
 import UIStateKeys from '../constants/UIStateKeys';
 import { decksDbModel } from '../infra/db';
@@ -15,7 +16,7 @@ export function* handleAddDeck(action) {
     let newModel = { ...action.payload, timestamp, questions: [] };
     newModel = yield call(decksDbModel.add, newModel);
     yield put(decksActions.addedDeck(newModel));
-    // TODO: Navigate
+    yield put(setLatestAdded({ key: UIStateKeys.NewDeck, value: newModel.id }));
   } catch (error) {
     yield put(
       setError({ key: UIStateKeys.NewDeck, value: formatErrorMessage(error) })

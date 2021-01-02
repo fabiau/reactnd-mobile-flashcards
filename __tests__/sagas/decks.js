@@ -1,6 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { addDeck, addedDeck } from '../../actions/decks';
 import { setError } from '../../actions/ui/errors';
+import { setLatestAdded } from '../../actions/ui/latestsAdded';
 import { setLoader } from '../../actions/ui/loaders';
 import UIStateKeys from '../../constants/UIStateKeys';
 import { decksDbModel } from '../../infra/db';
@@ -55,6 +56,12 @@ describe('sagas::decks', () => {
               questions: [],
             })
           )
+        );
+      });
+
+      it('sets the newly added deck as the latest added', () => {
+        expect(iterator.next().value).toEqual(
+          put(setLatestAdded({ key: UIStateKeys.NewDeck, value: '1' }))
         );
       });
 

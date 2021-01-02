@@ -36,7 +36,6 @@ export default function NewDeckForm({ style, loading, onSubmit }) {
             <FormTextInput
               error={hasTitleError}
               inputOptions={{
-                autoFocus: true,
                 maxLength: 50,
                 label: 'Title',
                 placeholder: 'My Awesome Deck',

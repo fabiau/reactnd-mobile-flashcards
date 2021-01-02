@@ -8,7 +8,11 @@ import { addDeck } from '../actions/decks';
 import NewDeckForm from '../components/decks/NewDeckForm';
 import createErrorSnackbarContainer from '../components/shared/ErrorSnackbarContainer';
 import UIStateKeys from '../constants/UIStateKeys';
-import { getErrorByKey, getLoaderByKey } from '../selectors/ui';
+import {
+  getErrorByKey,
+  getLatestAddedByKey,
+  getLoaderByKey,
+} from '../selectors/ui';
 
 const ErrorSnackbarContainer = createErrorSnackbarContainer(
   UIStateKeys.NewDeck
@@ -50,9 +54,12 @@ class NewDeckScreen extends Component {
     if (
       prevProps.loading === true &&
       this.props.loading === false &&
-      !this.props.error
+      !this.props.error &&
+      this.props.latestAdded
     ) {
-      this.props.navigation.goBack();
+      this.props.navigation.navigate('DeckDetail', {
+        deckId: this.props.latestAdded,
+      });
     }
   }
 
@@ -81,6 +88,7 @@ class NewDeckScreen extends Component {
 function mapStateToProps(state) {
   return {
     error: getErrorByKey(state, { key: UIStateKeys.NewDeck }),
+    latestAdded: getLatestAddedByKey(state, { key: UIStateKeys.NewDeck }),
     loading: getLoaderByKey(state, { key: UIStateKeys.NewDeck }),
   };
 }
