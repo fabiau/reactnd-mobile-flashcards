@@ -1,7 +1,7 @@
 import { setColorScheme } from '../../../actions/ui/theme';
 import theme from '../../../reducers/ui/theme';
 
-describe('reducers::theme', () => {
+describe('reducers::ui::theme', () => {
   test('setColorScheme', () => {
     let state = theme(undefined, {});
     expect(state).toEqual({ colorScheme: null });

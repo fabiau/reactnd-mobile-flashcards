@@ -1,6 +1,6 @@
 import { setColorScheme, SET_COLOR_SCHEME } from '../../../actions/ui/theme';
 
-describe('actions::theme', () => {
+describe('actions::ui::theme', () => {
   test('setColorScheme', () => {
     let action = setColorScheme(null);
     expect(action).toEqual({

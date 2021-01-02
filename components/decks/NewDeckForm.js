@@ -14,7 +14,7 @@ const NewDeckSchema = Yup.object().shape({
     .required('Please inform a title for the deck.'),
 });
 
-export default function NewDeckForm({ style, loading, onSubmit }) {
+export default function NewDeckForm({ style, submitting, onSubmit }) {
   return (
     <Formik
       initialValues={{ title: '' }}
@@ -47,13 +47,13 @@ export default function NewDeckForm({ style, loading, onSubmit }) {
 
             <Button
               style={styles.actions}
-              loading={loading}
-              disabled={loading || hasTitleError}
+              loading={submitting}
+              disabled={submitting || hasTitleError}
               mode="contained"
               onPress={handleSubmit}
               icon={(props) => <Ionicons name="checkmark-sharp" {...props} />}
             >
-              {loading ? 'Submitting' : 'Submit'}
+              {submitting ? 'Submitting' : 'Submit'}
             </Button>
           </View>
         );
@@ -63,7 +63,7 @@ export default function NewDeckForm({ style, loading, onSubmit }) {
 }
 
 NewDeckForm.propTypes = {
-  loading: PropTypes.bool.isRequired,
+  submitting: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 

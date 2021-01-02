@@ -5,18 +5,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addDeck } from '../actions/decks';
+import { clearError } from '../actions/ui/screens/newDeck';
 import NewDeckForm from '../components/decks/NewDeckForm';
-import createErrorSnackbarContainer from '../components/shared/ErrorSnackbarContainer';
-import UIStateKeys from '../constants/UIStateKeys';
-import {
-  getErrorByKey,
-  getLatestAddedByKey,
-  getLoaderByKey,
-} from '../selectors/ui';
-
-const ErrorSnackbarContainer = createErrorSnackbarContainer(
-  UIStateKeys.NewDeck
-);
+import ErrorSnackbar from '../components/shared/snackbars/ErrorSnackbar';
+import { getNewDeckScreenState } from '../selectors/ui/screens/newDeck';
 
 class NewDeckScreen extends Component {
   state = {
@@ -32,6 +24,7 @@ class NewDeckScreen extends Component {
     });
 
     const blurUnsubscribe = this.props.navigation.addListener('blur', () => {
+      this.props.clearError();
       this.setState(() => ({
         visible: false,
       }));
@@ -52,19 +45,19 @@ class NewDeckScreen extends Component {
   componentDidUpdate(prevProps) {
     // Check if it completed the submit action
     if (
-      prevProps.loading === true &&
-      this.props.loading === false &&
-      !this.props.error &&
-      this.props.latestAdded
+      prevProps.submitting === true &&
+      this.props.submitting === false &&
+      !this.props.errorMessage &&
+      this.props.lastSubmittedId
     ) {
       this.props.navigation.navigate('DeckDetail', {
-        deckId: this.props.latestAdded,
+        deckId: this.props.lastSubmittedId,
       });
     }
   }
 
   render() {
-    const { error, loading, addDeck } = this.props;
+    const { errorMessage, submitting, addDeck, clearError } = this.props;
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -73,12 +66,12 @@ class NewDeckScreen extends Component {
           {this.state.visible && (
             <NewDeckForm
               style={styles.form}
-              loading={loading}
+              submitting={submitting}
               onSubmit={(values) => addDeck(values)}
             />
           )}
 
-          <ErrorSnackbarContainer />
+          <ErrorSnackbar errorMessage={errorMessage} onDismiss={clearError} />
         </View>
       </SafeAreaView>
     );
@@ -86,15 +79,11 @@ class NewDeckScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  return {
-    error: getErrorByKey(state, { key: UIStateKeys.NewDeck }),
-    latestAdded: getLatestAddedByKey(state, { key: UIStateKeys.NewDeck }),
-    loading: getLoaderByKey(state, { key: UIStateKeys.NewDeck }),
-  };
+  return getNewDeckScreenState(state);
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addDeck }, dispatch);
+  return bindActionCreators({ addDeck, clearError }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewDeckScreen);

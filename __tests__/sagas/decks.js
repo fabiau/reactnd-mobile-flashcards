@@ -1,9 +1,12 @@
 import { call, put } from 'redux-saga/effects';
 import { addDeck, addedDeck } from '../../actions/decks';
-import { setError } from '../../actions/ui/errors';
-import { setLatestAdded } from '../../actions/ui/latestsAdded';
-import { setLoader } from '../../actions/ui/loaders';
-import UIStateKeys from '../../constants/UIStateKeys';
+import {
+  clearError,
+  hideSubmitting,
+  setError,
+  setLastSubmittedId,
+  showSubmitting,
+} from '../../actions/ui/screens/newDeck';
 import { decksDbModel } from '../../infra/db';
 import { handleAddDeck } from '../../sagas/decks';
 import { formatErrorMessage } from '../../utils/helpers/errors';
@@ -14,15 +17,11 @@ describe('sagas::decks', () => {
       let iterator = handleAddDeck(addDeck({ title: 'Lorem Ipsum' }));
 
       it('starts the loader for the UI', () => {
-        expect(iterator.next().value).toEqual(
-          put(setLoader({ key: UIStateKeys.NewDeck, value: true }))
-        );
+        expect(iterator.next().value).toEqual(put(showSubmitting()));
       });
 
       it('clears the error for the UI', () => {
-        expect(iterator.next().value).toEqual(
-          put(setError({ key: UIStateKeys.NewDeck, value: null }))
-        );
+        expect(iterator.next().value).toEqual(put(clearError()));
       });
 
       it('gets the current timestamp', () => {
@@ -60,15 +59,11 @@ describe('sagas::decks', () => {
       });
 
       it('sets the newly added deck as the latest added', () => {
-        expect(iterator.next().value).toEqual(
-          put(setLatestAdded({ key: UIStateKeys.NewDeck, value: '1' }))
-        );
+        expect(iterator.next().value).toEqual(put(setLastSubmittedId('1')));
       });
 
       it('disables the UI loading state', () => {
-        expect(iterator.next().value).toEqual(
-          put(setLoader({ key: UIStateKeys.NewDeck, value: false }))
-        );
+        expect(iterator.next().value).toEqual(put(hideSubmitting()));
       });
     });
 
@@ -76,15 +71,11 @@ describe('sagas::decks', () => {
       let iterator = handleAddDeck(addDeck({ title: 'Lorem Ipsum' }));
 
       it('starts the loader for the UI', () => {
-        expect(iterator.next().value).toEqual(
-          put(setLoader({ key: UIStateKeys.NewDeck, value: true }))
-        );
+        expect(iterator.next().value).toEqual(put(showSubmitting()));
       });
 
       it('clears the error for the UI', () => {
-        expect(iterator.next().value).toEqual(
-          put(setError({ key: UIStateKeys.NewDeck, value: null }))
-        );
+        expect(iterator.next().value).toEqual(put(clearError()));
       });
 
       it('gets the current timestamp', () => {
@@ -103,19 +94,12 @@ describe('sagas::decks', () => {
 
       it('handles unexpected db errors', () => {
         expect(iterator.throw(new Error('Ooops!')).value).toEqual(
-          put(
-            setError({
-              key: UIStateKeys.NewDeck,
-              value: formatErrorMessage(new Error('Ooops!')),
-            })
-          )
+          put(setError(formatErrorMessage(new Error('Ooops!'))))
         );
       });
 
       it('disables the UI loading state', () => {
-        expect(iterator.next().value).toEqual(
-          put(setLoader({ key: UIStateKeys.NewDeck, value: false }))
-        );
+        expect(iterator.next().value).toEqual(put(hideSubmitting()));
       });
     });
   });
