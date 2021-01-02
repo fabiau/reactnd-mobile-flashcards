@@ -8,7 +8,9 @@ export function* hydrate() {
 
   try {
     const [decks] = yield all([call(decksDbModel.getAll)]);
-    yield put(hydrateDecks(decks));
+    if (decks && typeof decks === 'object') {
+      yield put(hydrateDecks(decks));
+    }
   } finally {
     yield call(SplashScreen.hideAsync);
   }

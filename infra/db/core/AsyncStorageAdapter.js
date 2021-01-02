@@ -9,6 +9,11 @@ function _parseJSONItem(item) {
   }
 }
 
+/**
+ * Adds a new entry to the entries object for the given key.
+ * @param {string} storageKey The key where the entries are stored.
+ * @param {{ id: string, [prop: string]: any }} entry
+ */
 export async function addEntry(storageKey, entry) {
   return AsyncStorage.mergeItem(
     storageKey,
@@ -18,6 +23,26 @@ export async function addEntry(storageKey, entry) {
   );
 }
 
+/**
+ * Removes all entries with the corresponding ids from the storage.
+ * @param {string} storageKey The key where the entries are stored.
+ * @param {string[]} entriesIds The ids of the entries to be removed.
+ */
+export async function removeEntries(storageKey, entriesIds) {
+  const allEntries = await getAllEntries(storageKey);
+  if (allEntries !== null && typeof allEntries === 'object') {
+    for (const entryId of entriesIds) {
+      allEntries[entryId] = undefined;
+      delete allEntries[entryId];
+    }
+    await AsyncStorage.setItem(storageKey, allEntries);
+  }
+}
+
+/**
+ * Returns the stored value for the given key, which should be an object, or null.
+ * @param {string} storageKey The key where the entries are stored.
+ */
 export async function getAllEntries(storageKey) {
   const entry = await AsyncStorage.getItem(storageKey);
   return _parseJSONItem(entry);
