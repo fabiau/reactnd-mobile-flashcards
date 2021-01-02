@@ -5,8 +5,8 @@ import {
   ADD_GUESS,
   hydrateGuesses,
   HYDRATE_GUESSES,
-  removeCardGuesses,
-  REMOVE_CARD_GUESSES,
+  REMOVE_DECK_GUESSES,
+  removeDeckGuesses,
 } from '../../actions/guesses';
 
 describe('actions::guesses', () => {
@@ -61,11 +61,11 @@ describe('actions::guesses', () => {
     });
   });
 
-  test('removeCardGuesses', () => {
-    let action = removeCardGuesses('61774805-16b9-4832-93f1-fcb493dd937a');
+  test('removeDeckGuesses', () => {
+    let action = removeDeckGuesses(['61774805-16b9-4832-93f1-fcb493dd937a']);
     expect(action).toEqual({
-      type: REMOVE_CARD_GUESSES,
-      payload: '61774805-16b9-4832-93f1-fcb493dd937a',
+      type: REMOVE_DECK_GUESSES,
+      payload: ['61774805-16b9-4832-93f1-fcb493dd937a'],
     });
   });
 });

@@ -1,7 +1,7 @@
 export const ADD_GUESS = 'ADD_GUESS';
 export const ADDED_GUESS = 'ADDED_GUESS';
 export const HYDRATE_GUESSES = 'HYDRATE_GUESSES';
-export const REMOVE_CARD_GUESSES = 'REMOVE_CARD_GUESSES';
+export const REMOVE_DECK_GUESSES = 'REMOVE_DECK_GUESSES';
 
 export function addGuess({ cardId, correct }) {
   return {
@@ -24,9 +24,9 @@ export function hydrateGuesses(guesses) {
   };
 }
 
-export function removeCardGuesses(cardId) {
+export function removeDeckGuesses(cardsIds) {
   return {
-    type: REMOVE_CARD_GUESSES,
-    payload: cardId,
+    type: REMOVE_DECK_GUESSES,
+    payload: cardsIds,
   };
 }
