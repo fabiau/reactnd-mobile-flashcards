@@ -7,15 +7,13 @@ import {
   View,
 } from 'react-native';
 import { Card, Title } from 'react-native-paper';
+import DeckType from '../shared/prop-types/DeckType';
 
 function renderItem({ deck, onPress }) {
   return (
     <TouchableNativeFeedback onPress={onPress}>
       <Card style={styles.card}>
-        <Card.Title
-          title={deck.title}
-          subtitle={`${deck.questions.length} Questions`}
-        />
+        <Card.Title title={deck.title} subtitle={deck.cardCountLabel} />
       </Card>
     </TouchableNativeFeedback>
   );
@@ -51,13 +49,7 @@ export default function DeckList({ decks, onDeckPress, style }) {
 }
 
 DeckList.propTypes = {
-  decks: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      questions: PropTypes.array.isRequired,
-    }).isRequired
-  ).isRequired,
+  decks: PropTypes.arrayOf(DeckType.isRequired).isRequired,
   onDeckPress: PropTypes.func.isRequired,
 };
 

@@ -9,12 +9,13 @@ import {
   withTheme,
 } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
+import DeckType from '../shared/prop-types/DeckType';
 
-function DeckDetail({ theme, onStartQuizPress, onAddQuestionPress }) {
+function DeckDetail({ theme, deck, onStartQuizPress, onAddQuestionPress }) {
   return (
     <View style={styles.container}>
-      <Headline style={styles.text}>🌟 Astronomy</Headline>
-      <Title style={styles.text}>14 cards</Title>
+      <Headline style={styles.text}>{deck.title}</Headline>
+      <Title style={styles.text}>{deck.cardCountLabel}</Title>
 
       <Button
         style={styles.button}
@@ -48,6 +49,7 @@ function DeckDetail({ theme, onStartQuizPress, onAddQuestionPress }) {
 }
 
 DeckDetail.propTypes = {
+  deck: DeckType.isRequired,
   onAddQuestionPress: PropTypes.func.isRequired,
   onStartQuizPress: PropTypes.func.isRequired,
 };
