@@ -17,7 +17,7 @@ describe('reducers::decks', () => {
       ['50a37892-b6a8-4513-a4bc-88387fc12ea3']: {
         id: '50a37892-b6a8-4513-a4bc-88387fc12ea3',
         title: 'Lorem Ipsum',
-        questions: [],
+        cards: [],
       },
     });
   });

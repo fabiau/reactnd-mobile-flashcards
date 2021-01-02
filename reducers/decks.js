@@ -7,7 +7,7 @@ export default function decks(state = {}, action) {
         ...state,
         [action.payload.id]: {
           ...action.payload,
-          questions: [],
+          cards: [],
         },
       };
 

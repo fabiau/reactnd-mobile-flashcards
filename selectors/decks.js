@@ -1,16 +1,16 @@
 import { createSelector } from 'reselect';
 
-function getCardCountLabel(questionCount) {
-  if (questionCount === 0) {
+function getCardCountLabel(cardCount) {
+  if (cardCount === 0) {
     return '🙁 Empty deck';
   }
-  return `${questionCount} card${questionCount !== 1 ? 's' : ''}`;
+  return `${cardCount} card${cardCount !== 1 ? 's' : ''}`;
 }
 
 function formatDeckForDisplay(deck) {
   return {
     ...deck,
-    cardCountLabel: getCardCountLabel(deck?.questions.length),
+    cardCountLabel: getCardCountLabel(deck?.cards.length),
   };
 }
 

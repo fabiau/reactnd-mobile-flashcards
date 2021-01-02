@@ -34,7 +34,7 @@ describe('sagas::decks', () => {
           call(decksDbModel.add, {
             title: 'Lorem Ipsum',
             timestamp: 1231232131,
-            questions: [],
+            cards: [],
           })
         );
       });
@@ -45,7 +45,7 @@ describe('sagas::decks', () => {
             id: '1',
             title: 'Lorem Ipsum',
             timestamp: 1231232131,
-            questions: [],
+            cards: [],
           }).value
         ).toEqual(
           put(
@@ -53,7 +53,7 @@ describe('sagas::decks', () => {
               id: '1',
               title: 'Lorem Ipsum',
               timestamp: 1231232131,
-              questions: [],
+              cards: [],
             })
           )
         );
@@ -96,7 +96,7 @@ describe('sagas::decks', () => {
           call(decksDbModel.add, {
             title: 'Lorem Ipsum',
             timestamp: 1231232131,
-            questions: [],
+            cards: [],
           })
         );
       });

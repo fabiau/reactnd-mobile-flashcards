@@ -5,8 +5,8 @@ import { withTheme } from 'react-native-paper';
 import BottomTabNavigator from './BottomTabNavigator';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import DeckDetailScreen from '../screens/DeckDetailScreen';
-import AddQuestionScreen from '../screens/AddQuestionScreen';
-import QuestionsQuizScreen from '../screens/QuestionsQuizScreen';
+import AddCardScreen from '../screens/AddCardScreen';
+import QuizScreen from '../screens/QuizScreen';
 
 function Navigation({ theme }) {
   return (
@@ -36,14 +36,14 @@ function RootNavigator() {
       />
 
       <Stack.Screen
-        name="AddQuestion"
-        component={AddQuestionScreen}
-        options={{ title: 'Add Question' }}
+        name="AddCard"
+        component={AddCardScreen}
+        options={{ title: 'Add Card' }}
       />
 
       <Stack.Screen
-        name="QuestionsQuiz"
-        component={QuestionsQuizScreen}
+        name="Quiz"
+        component={QuizScreen}
         options={{ title: 'Quiz' }}
       />
 

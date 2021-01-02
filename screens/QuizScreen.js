@@ -2,17 +2,16 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Title } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AddCardForm from '../components/questions/AddQuestionForm';
-import QuestionsQuiz from '../components/questions/QuestionsQuiz';
+import QuizView from '../components/cards/QuizView';
 
-export default function QuestionsQuizScreen({ route }) {
+export default function QuizScreen({ route }) {
   const deckId = route.params.deckId;
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <Title>🌟 Astronomy</Title>
-        <QuestionsQuiz style={styles.quiz} />
+        <QuizView style={styles.quiz} />
       </View>
     </SafeAreaView>
   );

@@ -6,19 +6,19 @@ import { getDeckById } from '../selectors/decks';
 
 function DeckDetailScreen({ route, navigation, deck }) {
   const deckId = route.params.deckId;
-  const handleAddQuestionPress = () => {
-    navigation.navigate('AddQuestion', { deckId });
+  const handleAddCardPress = () => {
+    navigation.navigate('AddCard', { deckId });
   };
 
   const handleStarQuizPress = () => {
-    navigation.navigate('QuestionsQuiz', { deckId });
+    navigation.navigate('Quiz', { deckId });
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <DeckDetail
         deck={deck}
-        onAddQuestionPress={handleAddQuestionPress}
+        onAddCardPress={handleAddCardPress}
         onStartQuizPress={handleStarQuizPress}
       />
     </SafeAreaView>

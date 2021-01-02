@@ -11,7 +11,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import DeckType from '../shared/prop-types/DeckType';
 
-function DeckDetail({ theme, deck, onStartQuizPress, onAddQuestionPress }) {
+function DeckDetail({ theme, deck, onStartQuizPress, onAddCardPress }) {
   return (
     <View style={styles.container}>
       <Headline style={styles.text}>{deck.title}</Headline>
@@ -36,12 +36,12 @@ function DeckDetail({ theme, deck, onStartQuizPress, onAddQuestionPress }) {
         </Button>
 
         <Button
-          onPress={onAddQuestionPress}
+          onPress={onAddCardPress}
           style={styles.button}
           mode="outlined"
           icon={(props) => <Ionicons name="md-add-circle" {...props} />}
         >
-          Add Question
+          Add Card
         </Button>
       </View>
     </View>
@@ -50,7 +50,7 @@ function DeckDetail({ theme, deck, onStartQuizPress, onAddQuestionPress }) {
 
 DeckDetail.propTypes = {
   deck: DeckType.isRequired,
-  onAddQuestionPress: PropTypes.func.isRequired,
+  onAddCardPress: PropTypes.func.isRequired,
   onStartQuizPress: PropTypes.func.isRequired,
 };
 

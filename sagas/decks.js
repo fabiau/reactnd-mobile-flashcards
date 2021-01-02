@@ -13,7 +13,7 @@ export function* handleAddDeck(action) {
 
   try {
     const timestamp = yield call(Date.now);
-    let newModel = { ...action.payload, timestamp, questions: [] };
+    let newModel = { ...action.payload, timestamp, cards: [] };
     newModel = yield call(decksDbModel.add, newModel);
     yield put(decksActions.addedDeck(newModel));
     yield put(setLatestAdded({ key: UIStateKeys.NewDeck, value: newModel.id }));

@@ -14,7 +14,7 @@ class CurrentQuizCard extends Component {
     this.card?.flip();
   };
 
-  renderQuestion = () => {
+  renderCard = () => {
     return (
       <Card>
         <Card.Title
@@ -57,7 +57,7 @@ class CurrentQuizCard extends Component {
   render() {
     return (
       <CardFlip style={styles.cardContainer} ref={(card) => (this.card = card)}>
-        {this.renderQuestion()}
+        {this.renderCard()}
         {this.renderAnswer()}
       </CardFlip>
     );

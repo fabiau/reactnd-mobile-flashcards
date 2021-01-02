@@ -9,9 +9,9 @@ import {
   withTheme,
 } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
-import CurrentQuestionCard from './CurrentQuestionCard';
+import QuizCard from './QuizCard';
 
-class QuestionsQuiz extends Component {
+class QuizView extends Component {
   state = {
     flipped: false,
   };
@@ -38,9 +38,9 @@ class QuestionsQuiz extends Component {
 
     return (
       <View style={this.props.style}>
-        <Caption>14 questions remaining</Caption>
+        <Caption>14 cards remaining</Caption>
         <View>
-          <CurrentQuestionCard ref={(current) => (this.current = current)} />
+          <QuizCard ref={(current) => (this.current = current)} />
         </View>
 
         <View style={styles.bottom}>
@@ -81,7 +81,7 @@ class QuestionsQuiz extends Component {
   }
 }
 
-export default withTheme(QuestionsQuiz);
+export default withTheme(QuizView);
 
 const styles = StyleSheet.create({
   bottom: {
