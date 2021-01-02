@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Title } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import QuizView from '../components/cards/QuizView';
+import QuizView from '../components/quiz/QuizView';
 
 export default function QuizScreen({ route }) {
   const deckId = route.params.deckId;
