@@ -1,4 +1,4 @@
-import { setColorScheme, SET_COLOR_SCHEME } from '../../actions/theme';
+import { setColorScheme, SET_COLOR_SCHEME } from '../../../actions/ui/theme';
 
 describe('actions::theme', () => {
   test('setColorScheme', () => {

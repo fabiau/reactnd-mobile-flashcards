@@ -9,7 +9,7 @@ import { Provider as ReactReduxProvider } from 'react-redux';
 import rootSaga from './sagas';
 import reducers from './reducers';
 import Navigation from './navigation';
-import { AppPaperThemeProvider } from './theme';
+import { AppThemeProvider } from './theme';
 
 let sagaMiddleware;
 let store;
@@ -33,10 +33,10 @@ export default function App() {
   return (
     <ReactReduxProvider store={store}>
       <SafeAreaProvider>
-        <AppPaperThemeProvider>
+        <AppThemeProvider>
           <Navigation />
           <StatusBar style="auto" />
-        </AppPaperThemeProvider>
+        </AppThemeProvider>
       </SafeAreaProvider>
     </ReactReduxProvider>
   );

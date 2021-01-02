@@ -1,7 +1,7 @@
 import { Appearance } from 'react-native';
 import { eventChannel } from 'redux-saga';
 import { call, cancelled, put, take } from 'redux-saga/effects';
-import { setColorScheme } from '../actions/theme';
+import { setColorScheme } from '../../actions/ui/theme';
 
 export function appearanceChangeChannel() {
   return eventChannel((emit) => {

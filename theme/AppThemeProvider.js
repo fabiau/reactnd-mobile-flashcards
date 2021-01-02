@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { getColorScheme } from '../selectors/theme';
+import { getColorScheme } from '../selectors/ui/theme';
 import colors, { ColorSchemeNames } from './colors';
 import fonts from './fonts';
 
@@ -17,7 +17,7 @@ function getTheme(colorScheme = ColorSchemeNames.Light) {
   };
 }
 
-function AppPaperThemeProvider({ children, colorScheme }) {
+function AppThemeProvider({ children, colorScheme }) {
   return (
     <PaperProvider theme={getTheme(colorScheme)}>{children}</PaperProvider>
   );
@@ -29,4 +29,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(AppPaperThemeProvider);
+export default connect(mapStateToProps)(AppThemeProvider);

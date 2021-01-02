@@ -1,11 +1,11 @@
 import { Appearance } from 'react-native';
 import { channel, mock } from 'redux-saga';
 import { call, put, take } from 'redux-saga/effects';
-import { setColorScheme } from '../../actions/theme';
+import { setColorScheme } from '../../../actions/ui/theme';
 import {
   appearanceChangeChannel,
   watchChangeColorScheme,
-} from '../../sagas/theme';
+} from '../../../sagas/ui/theme';
 
 describe('sagas::theme', () => {
   describe('watchChangeColorScheme', () => {

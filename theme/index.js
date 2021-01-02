@@ -1,1 +1,1 @@
-export { default as AppPaperThemeProvider } from './AppPaperThemeProvider';
+export { default as AppThemeProvider } from './AppThemeProvider';

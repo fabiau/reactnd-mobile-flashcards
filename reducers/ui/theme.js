@@ -1,4 +1,4 @@
-import { SET_COLOR_SCHEME } from '../actions/theme';
+import { SET_COLOR_SCHEME } from '../../actions/ui/theme';
 
 export default function theme(state = { colorScheme: null }, action) {
   switch (action.type) {

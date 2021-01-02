@@ -1,5 +1,5 @@
-import { setColorScheme } from '../../actions/theme';
-import theme from '../../reducers/theme';
+import { setColorScheme } from '../../../actions/ui/theme';
+import theme from '../../../reducers/ui/theme';
 
 describe('reducers::theme', () => {
   test('setColorScheme', () => {
