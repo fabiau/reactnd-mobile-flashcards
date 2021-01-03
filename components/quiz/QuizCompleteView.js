@@ -19,7 +19,7 @@ export default function QuizCompleteView({ score, onGoBack, onRestartQuiz }) {
       <TrophyWinnersImage width={300} height={200} />
       <Headline>Congratulations!</Headline>
       <Subheading>
-        {score.answeredCorrectCount} ou of {score.totalQuestions} correct
+        {score.answeredCorrectCount} out of {score.totalQuestions} correct
         answers
       </Subheading>
 
