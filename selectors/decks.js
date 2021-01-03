@@ -25,5 +25,8 @@ export const getDecksDisplayList = createSelector([getDecks], (decks) =>
 const getDeckIdProp = (_, props) => props.deckId;
 export const getDeckById = createSelector(
   [getDecks, getDeckIdProp],
-  (decks, deckId) => formatDeckForDisplay(decks[deckId])
+  (decks, deckId) =>
+    typeof deckId === 'string' && deckId in (decks ?? {})
+      ? formatDeckForDisplay(decks[deckId])
+      : null
 );

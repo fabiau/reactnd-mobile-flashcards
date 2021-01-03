@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import {
-  Button,
-  Caption,
-  Paragraph,
-  RadioButton,
-  Subheading,
-  withTheme,
-} from 'react-native-paper';
-import { Ionicons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
+import { View } from 'react-native';
+import { Caption } from 'react-native-paper';
 import QuizCard from './QuizCard';
+import QuizActions from './QuizActions';
+import DeckType from '../shared/prop-types/DeckType';
 
 class QuizView extends Component {
+  static propTypes = {
+    deck: DeckType.isRequired,
+  };
+
   state = {
     flipped: false,
   };
@@ -39,63 +38,11 @@ class QuizView extends Component {
     return (
       <View style={this.props.style}>
         <Caption>14 cards remaining</Caption>
-        <View>
-          <QuizCard ref={(current) => (this.current = current)} />
-        </View>
-
-        <View style={styles.bottom}>
-          <Button onPress={this.toggleFlip} mode="contained">
-            {flipped ? 'Hide Answer' : 'Show Answer'}
-          </Button>
-
-          <View style={styles.guessContainer}>
-            <Subheading>My guess was:</Subheading>
-            <View style={styles.guessActions}>
-              <Button
-                mode="outlined"
-                color={theme.colors.success}
-                style={[
-                  styles.guessButton,
-                  { borderTopRightRadius: 0, borderBottomRightRadius: 0 },
-                ]}
-                icon={(props) => <Ionicons name="checkmark" {...props} />}
-              >
-                Correct
-              </Button>
-              <Button
-                mode="outlined"
-                color={theme.colors.danger}
-                style={[
-                  styles.guessButton,
-                  { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 },
-                ]}
-                icon={(props) => <Ionicons name="close" {...props} />}
-              >
-                Incorrect
-              </Button>
-            </View>
-          </View>
-        </View>
+        <QuizCard ref={(current) => (this.current = current)} />
+        <QuizActions showAnswer={flipped} onToggleAnswer={this.toggleFlip} />
       </View>
     );
   }
 }
 
-export default withTheme(QuizView);
-
-const styles = StyleSheet.create({
-  bottom: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  guessContainer: {
-    marginTop: 16,
-  },
-  guessActions: {
-    marginTop: 8,
-    flexDirection: 'row',
-  },
-  guessButton: {
-    flex: 1,
-  },
-});
+export default QuizView;
