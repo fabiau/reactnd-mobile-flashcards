@@ -5,7 +5,6 @@ import {
   clearError,
   hideSubmitting,
   setError,
-  setLastSubmittedId,
   showSubmitting,
 } from '../../actions/ui/screens/addCard';
 import { cardsDbModel, decksDbModel } from '../../infra/db';
