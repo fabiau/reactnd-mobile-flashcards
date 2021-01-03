@@ -5,4 +5,5 @@ export default PropTypes.shape({
   question: PropTypes.string.isRequired,
   answer: PropTypes.string.isRequired,
   timestamp: PropTypes.number.isRequired,
+  cardNumber: PropTypes.number,
 });

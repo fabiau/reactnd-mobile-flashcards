@@ -41,9 +41,29 @@ export default class QuizView extends Component {
     this.props.onSubmitGuess(this.getCurrentCard(), correct);
   };
 
+  reset = () => {
+    if (this.state.flipped) {
+      this.toggleFlip();
+    }
+  };
+
+  getRemainingCardsText = () => {
+    const { remainingCards } = this.props;
+    const remainingCardsCount = remainingCards.length;
+
+    return remainingCardsCount === 1
+      ? 'Last card!'
+      : `${remainingCardsCount} cards remaining`;
+  };
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.remainingCards[0] !== this.getCurrentCard()) {
+      this.reset();
+    }
+  }
+
   render() {
     const { flipped, guess } = this.state;
-    const { remainingCards } = this.props;
     const currentCard = this.getCurrentCard();
 
     if (!currentCard) {
@@ -52,7 +72,7 @@ export default class QuizView extends Component {
 
     return (
       <View style={this.props.style}>
-        <Caption>{remainingCards.length} cards remaining</Caption>
+        <Caption>{this.getRemainingCardsText()}</Caption>
         <QuizCard card={currentCard} ref={this.currentCardView} />
         <QuizActions
           showAnswer={flipped}

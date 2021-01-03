@@ -35,7 +35,12 @@ export const getQuizRemainingCards = createSelector(
     const remainingCards = mappedCards
       .reduce(
         (remainingCards, card) =>
-          card.id in guesses ? remainingCards : [...remainingCards, card],
+          card.id in guesses
+            ? remainingCards
+            : [
+                ...remainingCards,
+                { ...card, cardNumber: mappedCards.indexOf(card) + 1 },
+              ],
         []
       )
       .sort((a, b) => a.timestamp - b.timestamp);

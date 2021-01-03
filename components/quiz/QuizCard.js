@@ -31,7 +31,7 @@ class CurrentQuizCard extends Component {
               {...props}
             />
           )}
-          title="Question #1"
+          title={`Question #${this.props.card.cardNumber}`}
         />
         <Card.Content>
           <Paragraph>{this.props.card.question}</Paragraph>
@@ -51,7 +51,7 @@ class CurrentQuizCard extends Component {
               {...props}
             />
           )}
-          title="Answer #1"
+          title={`Answer #${this.props.card.cardNumber}`}
         />
         <Card.Content>
           <Paragraph>{this.props.card.answer}</Paragraph>
