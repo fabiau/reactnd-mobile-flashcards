@@ -18,6 +18,7 @@ export const getQuizProgress = createSelector(
         complete: false,
         answeredCorrectCount: 0,
         totalQuestions: 0,
+        isComplete: false,
       };
     }
 
