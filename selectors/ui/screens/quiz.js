@@ -1,45 +1,74 @@
 import { createSelector } from 'reselect';
-import { getCards } from '../../cards';
-import { getDeckById } from '../../decks';
+import { getCards, getDeckCards } from '../../cards';
 import { getGuesses } from '../../guesses';
 
+// TODO: Use submittingGuess on the view.
 export const getQuizScreenState = (state) =>
   state.ui?.screens?.quiz ?? {
     submittingGuess: false,
     submitGuessErrorMessage: null,
   };
 
+export const getQuizProgress = createSelector(
+  [getDeckCards, getGuesses],
+  (cards, guesses) => {
+    if (!cards || !guesses || cards.length === 0) {
+      return {
+        isInProgress: false,
+        complete: false,
+        answeredCorrectCount: 0,
+        totalQuestions: 0,
+      };
+    }
+
+    const filteredGuesses = cards.reduce(
+      (filteredGuesses, card) =>
+        card.id in guesses
+          ? [...filteredGuesses, guesses[card.id]]
+          : filteredGuesses,
+      []
+    );
+
+    const isInProgress = filteredGuesses.length !== 0;
+    const answeredCorrectCount = filteredGuesses.filter(
+      (guess) => guess.correct
+    ).length;
+    const totalQuestions = cards.length;
+
+    return {
+      isInProgress,
+      answeredCorrectCount,
+      totalQuestions,
+      isComplete: filteredGuesses.length === cards.length,
+    };
+  }
+);
+
 export const getQuizRemainingCards = createSelector(
-  [getDeckById, getCards, getGuesses],
-  (deck, cards, guesses) => {
-    if (deck === null) {
+  [getDeckCards, getGuesses],
+  (cards, guesses) => {
+    if (!cards) {
       return {
         errorMessage: "Deck doesn't exist.",
         data: null,
       };
     }
 
-    const mappedCards = deck.cards?.reduce(
-      (mappedCards, cardId) =>
-        cardId in cards ? [...mappedCards, cards[cardId]] : mappedCards,
-      []
-    );
-
-    if (!mappedCards || mappedCards.length === 0) {
+    if (cards.length === 0) {
       return {
         errorMessage: 'Deck is empty.',
         data: null,
       };
     }
 
-    const remainingCards = mappedCards
+    const remainingCards = cards
       .reduce(
         (remainingCards, card) =>
           card.id in guesses
             ? remainingCards
             : [
                 ...remainingCards,
-                { ...card, cardNumber: mappedCards.indexOf(card) + 1 },
+                { ...card, cardNumber: cards.indexOf(card) + 1 },
               ],
         []
       )

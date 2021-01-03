@@ -67,7 +67,7 @@ export default class QuizView extends Component {
     const currentCard = this.getCurrentCard();
 
     if (!currentCard) {
-      return null; // <QuizCompleteView />
+      return null;
     }
 
     return (

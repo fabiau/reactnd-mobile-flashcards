@@ -5,18 +5,28 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addGuess } from '../actions/guesses';
+import QuizCompleteView from '../components/quiz/QuizCompleteView';
 import QuizView from '../components/quiz/QuizView';
 import { getDeckById } from '../selectors/decks';
-import { getQuizRemainingCards } from '../selectors/ui/screens/quiz';
+import {
+  getQuizProgress,
+  getQuizRemainingCards,
+} from '../selectors/ui/screens/quiz';
 
 class QuizScreen extends Component {
   handleSubmitGuess = (card, correct) => {
     this.props.addGuess({ cardId: card.id, correct });
   };
 
+  handleGoBack = () => {
+    this.props.navigation.goBack();
+  };
+
+  handleRestarQuiz = () => {};
+
   render() {
-    const { deck, remainingCards } = this.props;
-    if (remainingCards.error) {
+    const { deck, remainingCards, progress } = this.props;
+    if (remainingCards.errorMessage) {
       return null; // <ErrorView />
     }
 
@@ -24,11 +34,20 @@ class QuizScreen extends Component {
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.container}>
           <Title>{deck.title}</Title>
-          <QuizView
-            style={styles.quiz}
-            remainingCards={remainingCards.data}
-            onSubmitGuess={this.handleSubmitGuess}
-          />
+
+          {remainingCards.data.length ? (
+            <QuizView
+              style={styles.quiz}
+              remainingCards={remainingCards.data}
+              onSubmitGuess={this.handleSubmitGuess}
+            />
+          ) : (
+            <QuizCompleteView
+              score={progress}
+              onGoBack={this.handleGoBack}
+              onRestartQuiz={this.handleRestarQuiz}
+            />
+          )}
         </View>
       </SafeAreaView>
     );
@@ -41,6 +60,7 @@ function mapStateToProps(state, ownProps) {
   return {
     deck: getDeckById(state, getDeckIdProps),
     remainingCards: getQuizRemainingCards(state, getDeckIdProps),
+    progress: getQuizProgress(state, getDeckIdProps),
   };
 }
 
