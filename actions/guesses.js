@@ -6,14 +6,14 @@ export const REMOVE_DECK_GUESSES = 'REMOVE_DECK_GUESSES';
 export function addGuess({ cardId, correct }) {
   return {
     type: ADD_GUESS,
-    payload: { cardId, correct },
+    payload: { id: cardId, correct },
   };
 }
 
-export function addedGuess({ cardId, correct, timestamp }) {
+export function addedGuess({ id, correct, timestamp }) {
   return {
     type: ADDED_GUESS,
-    payload: { cardId, correct, timestamp },
+    payload: { id, correct, timestamp },
   };
 }
 

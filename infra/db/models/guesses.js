@@ -6,7 +6,7 @@ import dbModel from '../core/dbModel';
 export const STORAGE_KEY = 'ReactNDMobileFlashcards:Guesses';
 
 export default dbModel({ storageKey: STORAGE_KEY }, [
-  canAdd(),
+  canAdd({ autoGenerateId: false }),
   canMultiDelete(),
   canGetAll(),
 ]);

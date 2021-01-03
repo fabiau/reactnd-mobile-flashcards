@@ -17,7 +17,7 @@ export function* handleAddGuess(action) {
 
   try {
     const cards = yield select(getCards);
-    if (action.payload.cardId in cards) {
+    if (action.payload.id in cards) {
       const timestamp = yield call(Date.now);
 
       let newModel = { ...action.payload, timestamp };

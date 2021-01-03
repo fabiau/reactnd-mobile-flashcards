@@ -9,7 +9,7 @@ export default function guesses(state = {}, action) {
     case ADDED_GUESS:
       return {
         ...state,
-        [action.payload.cardId]: action.payload,
+        [action.payload.id]: action.payload,
       };
 
     case HYDRATE_GUESSES:
@@ -19,10 +19,10 @@ export default function guesses(state = {}, action) {
       };
 
     case REMOVE_DECK_GUESSES:
-      return Object.keys(state).reduce((filtered, cardId) => {
-        return action.payload.includes(cardId)
+      return Object.keys(state).reduce((filtered, id) => {
+        return action.payload.includes(id)
           ? filtered
-          : { ...filtered, [cardId]: state[cardId] };
+          : { ...filtered, [id]: state[id] };
       }, {});
 
     default:

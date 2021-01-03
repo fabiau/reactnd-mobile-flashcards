@@ -4,10 +4,15 @@ import { Button } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import QuizGuess from './QuizGuess';
 
-export default function QuizActions({ theme, showAnswer, onToggleAnswer }) {
+export default function QuizActions({
+  theme,
+  showAnswer,
+  onToggleAnswer,
+  onSubmitGuess,
+}) {
   return (
     <View style={styles.container}>
-      <QuizGuess visible={showAnswer} />
+      <QuizGuess visible={showAnswer} onSubmit={onSubmitGuess} />
 
       <Button onPress={onToggleAnswer} mode="contained">
         {showAnswer ? 'Hide Answer' : 'Show Answer'}
@@ -19,6 +24,7 @@ export default function QuizActions({ theme, showAnswer, onToggleAnswer }) {
 QuizActions.propTypes = {
   showAnswer: PropTypes.bool.isRequired,
   onToggleAnswer: PropTypes.func.isRequired,
+  onSubmitGuess: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

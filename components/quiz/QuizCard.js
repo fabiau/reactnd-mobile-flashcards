@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import CardFlip from 'react-native-card-flip';
 import { Ionicons } from '@expo/vector-icons';
 import { Card, Paragraph, withTheme } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
+import CardType from '../shared/prop-types/CardType';
 
 class CurrentQuizCard extends Component {
+  static propTypes = {
+    card: CardType.isRequired,
+  };
+
   constructor(props) {
     super(props);
-    this.card = null;
+    this.cardView = React.createRef();
   }
 
   flipCard = () => {
-    this.card?.flip();
+    this.cardView.current?.flip();
   };
 
   renderCard = () => {
@@ -28,7 +34,7 @@ class CurrentQuizCard extends Component {
           title="Question #1"
         />
         <Card.Content>
-          <Paragraph>Lorem Ipsum Dolor sit amet</Paragraph>
+          <Paragraph>{this.props.card.question}</Paragraph>
         </Card.Content>
       </Card>
     );
@@ -48,7 +54,7 @@ class CurrentQuizCard extends Component {
           title="Answer #1"
         />
         <Card.Content>
-          <Paragraph>Lorem Ipsum Dolor sit amet</Paragraph>
+          <Paragraph>{this.props.card.answer}</Paragraph>
         </Card.Content>
       </Card>
     );
@@ -56,7 +62,7 @@ class CurrentQuizCard extends Component {
 
   render() {
     return (
-      <CardFlip style={styles.cardContainer} ref={(card) => (this.card = card)}>
+      <CardFlip style={styles.cardContainer} ref={this.cardView}>
         {this.renderCard()}
         {this.renderAnswer()}
       </CardFlip>

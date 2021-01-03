@@ -38,7 +38,7 @@ class QuizGuess extends Component {
   }
 
   render() {
-    const { theme, visible } = this.props;
+    const { theme, visible, onSubmit } = this.props;
     const { animation } = this.state;
 
     return (
@@ -47,6 +47,7 @@ class QuizGuess extends Component {
         <View style={styles.actions}>
           <Button
             mode="outlined"
+            onPress={() => onSubmit(true)}
             color={theme.colors.success}
             style={[
               styles.button,
@@ -58,6 +59,7 @@ class QuizGuess extends Component {
           </Button>
           <Button
             mode="outlined"
+            onPress={() => onSubmit(false)}
             color={theme.colors.danger}
             style={[
               styles.button,
@@ -75,6 +77,7 @@ class QuizGuess extends Component {
 
 QuizGuess.propTypes = {
   visible: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default withTheme(QuizGuess);

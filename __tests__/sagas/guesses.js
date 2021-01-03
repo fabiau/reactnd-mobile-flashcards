@@ -36,7 +36,6 @@ describe('sagas::guesses', () => {
           iterator.next({
             123456: {
               id: '123456',
-              guesses: ['1'],
             },
           }).value
         ).toEqual(call(Date.now));
@@ -45,7 +44,7 @@ describe('sagas::guesses', () => {
       it('calls guessesDbModel.add with the payload guess', () => {
         expect(iterator.next(1231232131).value).toEqual(
           call(guessesDbModel.add, {
-            cardId: '123456',
+            id: '123456',
             correct: true,
             timestamp: 1231232131,
           })
@@ -55,14 +54,14 @@ describe('sagas::guesses', () => {
       it('adds the guess to the store', () => {
         expect(
           iterator.next({
-            cardId: '123456',
+            id: '123456',
             correct: true,
             timestamp: 1231232131,
           }).value
         ).toEqual(
           put(
             addedGuess({
-              cardId: '123456',
+              id: '123456',
               correct: true,
               timestamp: 1231232131,
             })
@@ -105,7 +104,7 @@ describe('sagas::guesses', () => {
       it('calls guessesDbModel.add with the payload guess', () => {
         expect(iterator.next(1231232131).value).toEqual(
           call(guessesDbModel.add, {
-            cardId: '123456',
+            id: '123456',
             correct: false,
             timestamp: 1231232131,
           })

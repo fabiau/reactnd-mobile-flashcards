@@ -5,10 +5,12 @@ import { Caption } from 'react-native-paper';
 import QuizCard from './QuizCard';
 import QuizActions from './QuizActions';
 import DeckType from '../shared/prop-types/DeckType';
+import CardType from '../shared/prop-types/CardType';
 
-class QuizView extends Component {
+export default class QuizView extends Component {
   static propTypes = {
-    deck: DeckType.isRequired,
+    remainingCards: PropTypes.arrayOf(CardType.isRequired).isRequired,
+    onSubmitGuess: PropTypes.func.isRequired,
   };
 
   state = {
@@ -17,13 +19,17 @@ class QuizView extends Component {
 
   constructor(props) {
     super(props);
-    this.current = null;
+    this.currentCardView = React.createRef();
   }
 
+  getCurrentCard = () => {
+    return this.props.remainingCards[0];
+  };
+
   toggleFlip = () => {
-    if (this.current != null) {
+    if (this.currentCardView.current) {
       this.setState((prevState) => ({ flipped: !prevState.flipped }));
-      this.current.flipCard();
+      this.currentCardView.current.flipCard();
     }
   };
 
@@ -31,18 +37,29 @@ class QuizView extends Component {
     this.setState(() => ({ guess }));
   };
 
+  handleSubmitGuess = (correct) => {
+    this.props.onSubmitGuess(this.getCurrentCard(), correct);
+  };
+
   render() {
     const { flipped, guess } = this.state;
-    const { theme } = this.props;
+    const { remainingCards } = this.props;
+    const currentCard = this.getCurrentCard();
+
+    if (!currentCard) {
+      return null; // <QuizCompleteView />
+    }
 
     return (
       <View style={this.props.style}>
-        <Caption>14 cards remaining</Caption>
-        <QuizCard ref={(current) => (this.current = current)} />
-        <QuizActions showAnswer={flipped} onToggleAnswer={this.toggleFlip} />
+        <Caption>{remainingCards.length} cards remaining</Caption>
+        <QuizCard card={currentCard} ref={this.currentCardView} />
+        <QuizActions
+          showAnswer={flipped}
+          onToggleAnswer={this.toggleFlip}
+          onSubmitGuess={this.handleSubmitGuess}
+        />
       </View>
     );
   }
 }
-
-export default QuizView;

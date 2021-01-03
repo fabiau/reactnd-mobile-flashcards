@@ -10,11 +10,13 @@ export function _uuid() {
   return uuid;
 }
 
-export default function canAdd() {
+export default function canAdd({ autoGenerateId = true } = {}) {
   return function ({ storageKey }) {
     return {
       async add(entry) {
-        const newEntry = { ...entry, id: _uuid() };
+        const newEntry = autoGenerateId
+          ? { ...entry, id: _uuid() }
+          : { ...entry };
         await addEntry(storageKey, newEntry);
         return newEntry;
       },
