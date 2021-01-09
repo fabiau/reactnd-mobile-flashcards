@@ -19,7 +19,7 @@ export function* rescheduleDailyNotification({
     if (status === Permissions.PermissionStatus.GRANTED) {
       const now = yield call(getNow);
       // Set the notification for tomorrow 1 minute earlier
-      now.setMinutes(-1);
+      now.setMinutes(now.getMinutes() - 1);
 
       yield call(Notifications.cancelScheduledNotificationAsync, identifier);
       yield call(Notifications.scheduleNotificationAsync, {
@@ -41,5 +41,24 @@ export function* rescheduleDailyNotification({
     }
   } catch (error) {
     console.warn(`Error scheduling notification ${identifier}`, error);
+  }
+}
+
+export function* setDailyNotification({
+  identifier = 'default',
+  content: { title, body },
+} = {}) {
+  const allNotifications = yield call(
+    Notifications.getAllScheduledNotificationsAsync
+  );
+  const scheduled = allNotifications.some(
+    (notification) => notification.identifier === identifier
+  );
+
+  if (!scheduled) {
+    yield call(rescheduleDailyNotification, {
+      identifier,
+      content: { title, body },
+    });
   }
 }

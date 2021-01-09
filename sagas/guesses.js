@@ -12,6 +12,7 @@ import {
 import { getCards } from '../selectors/cards';
 import { getGuesses } from '../selectors/guesses';
 import { rescheduleDailyNotification } from './notifications';
+import { LocalNotifications } from '../constants/notifications';
 
 export function* isQuizComplete(cardSubmitted) {
   // TODO: Implement tests
@@ -24,13 +25,7 @@ export function* isQuizComplete(cardSubmitted) {
 }
 
 export function* rescheduleQuizReminder() {
-  yield call(rescheduleDailyNotification, {
-    identifier: 'complete_quiz',
-    content: {
-      title: 'Quiz Reminder',
-      body: "👋 Hey, don't forget to complete a quiz today.",
-    },
-  });
+  yield call(rescheduleDailyNotification, LocalNotifications.QuizReminder);
 }
 
 export function* handleAddGuess(action) {
