@@ -23,6 +23,7 @@ function DeckDetail({
       <Headline style={styles.text}>{deck.title}</Headline>
       <Title style={styles.text}>{deck.cardCountLabel}</Title>
 
+      {/* TODO: Implement deck deletion functionality
       <Button
         style={styles.button}
         labelStyle={{ color: theme.colors.danger }}
@@ -30,6 +31,7 @@ function DeckDetail({
       >
         Delete Deck
       </Button>
+      */}
 
       <View style={styles.actions}>
         <Button
