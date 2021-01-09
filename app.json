@@ -5,7 +5,7 @@
     "name": "Mobile Flashcards",
     "description": "React Nanodegree Project: Mobile Flashcards",
     "slug": "reactnd-mobile-flashcards",
-    "sdkVersion": "~40.0.0",
+    "sdkVersion": "40.0.0",
     "version": "1.0.0",
     "platforms": [
       "android"
