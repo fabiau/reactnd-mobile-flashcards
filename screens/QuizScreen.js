@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Switch } from 'react-native-gesture-handler';
 import { Title } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { connect } from 'react-redux';
@@ -8,6 +9,7 @@ import { addGuess } from '../actions/guesses';
 import { resetDeckQuiz } from '../actions/quiz';
 import QuizCompleteView from '../components/quiz/QuizCompleteView';
 import QuizView from '../components/quiz/QuizView';
+import SwitchTransition from '../components/shared/animation/SwitchTransition';
 import { getDeckById } from '../selectors/decks';
 import {
   getQuizProgress,
@@ -33,24 +35,30 @@ class QuizScreen extends Component {
       return null; // <ErrorView />
     }
 
+    const hasRemainingCards = remainingCards.data.length;
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.container}>
           <Title>{deck.title}</Title>
 
-          {remainingCards.data.length ? (
-            <QuizView
-              style={styles.quiz}
-              remainingCards={remainingCards.data}
-              onSubmitGuess={this.handleSubmitGuess}
-            />
-          ) : (
-            <QuizCompleteView
-              score={progress}
-              onGoBack={this.handleGoBack}
-              onRestartQuiz={this.handleRestarQuiz}
-            />
-          )}
+          <SwitchTransition
+            transitionKey={hasRemainingCards ? 'quiz' : 'complete'}
+          >
+            {remainingCards.data.length ? (
+              <QuizView
+                style={styles.quiz}
+                remainingCards={remainingCards.data}
+                onSubmitGuess={this.handleSubmitGuess}
+              />
+            ) : (
+              <QuizCompleteView
+                score={progress}
+                onGoBack={this.handleGoBack}
+                onRestartQuiz={this.handleRestarQuiz}
+              />
+            )}
+          </SwitchTransition>
         </View>
       </SafeAreaView>
     );
