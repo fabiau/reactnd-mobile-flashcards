@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addGuess } from '../actions/guesses';
+import { resetDeckQuiz } from '../actions/quiz';
 import QuizCompleteView from '../components/quiz/QuizCompleteView';
 import QuizView from '../components/quiz/QuizView';
 import { getDeckById } from '../selectors/decks';
@@ -22,7 +23,9 @@ class QuizScreen extends Component {
     this.props.navigation.goBack();
   };
 
-  handleRestarQuiz = () => {};
+  handleRestarQuiz = () => {
+    this.props.resetDeckQuiz(this.props.deck.id);
+  };
 
   render() {
     const { deck, remainingCards, progress } = this.props;
@@ -65,7 +68,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addGuess }, dispatch);
+  return bindActionCreators({ addGuess, resetDeckQuiz }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuizScreen);

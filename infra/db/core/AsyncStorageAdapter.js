@@ -35,7 +35,7 @@ export async function removeEntries(storageKey, entriesIds) {
       allEntries[entryId] = undefined;
       delete allEntries[entryId];
     }
-    await AsyncStorage.setItem(storageKey, allEntries);
+    await AsyncStorage.setItem(storageKey, JSON.stringify(allEntries));
   }
 }
 
