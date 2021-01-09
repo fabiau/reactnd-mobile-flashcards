@@ -21,9 +21,7 @@ export function* handleResetDeckQuiz(action) {
     const guessesState = yield select(getGuesses);
     const cardsIds = deck.cards.reduce(
       (cardsIds, cardId) =>
-        cardId in guessesState
-          ? [...cardsIds, guessesState[cardId].id]
-          : cardsIds,
+        cardId in guessesState ? [...cardsIds, cardId] : cardsIds,
       []
     );
 
