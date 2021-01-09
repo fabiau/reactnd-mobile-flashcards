@@ -28,7 +28,7 @@ export function* rescheduleQuizReminder() {
     identifier: 'complete_quiz',
     content: {
       title: 'Quiz Reminder',
-      body: "👋 Hey, don't forget to complete a quiz today",
+      body: "👋 Hey, don't forget to complete a quiz today.",
     },
   });
 }

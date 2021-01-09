@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import createSagaMiddleware from 'redux-saga';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider as ReactReduxProvider } from 'react-redux';
+import * as Notifications from 'expo-notifications';
 
 import rootSaga from './sagas';
 import reducers from './reducers';
@@ -29,17 +30,29 @@ if (__DEV__) {
 
 sagaMiddleware.run(rootSaga);
 
-export default function App() {
-  return (
-    <ReactReduxProvider store={store}>
-      <SafeAreaProvider>
-        <AppThemeProvider>
-          <Navigation />
-          <StatusBar style="auto" />
-        </AppThemeProvider>
-      </SafeAreaProvider>
-    </ReactReduxProvider>
-  );
+export default class App extends Component {
+  componentDidMount() {
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
+      }),
+    });
+  }
+
+  render() {
+    return (
+      <ReactReduxProvider store={store}>
+        <SafeAreaProvider>
+          <AppThemeProvider>
+            <Navigation />
+            <StatusBar style="auto" />
+          </AppThemeProvider>
+        </SafeAreaProvider>
+      </ReactReduxProvider>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
