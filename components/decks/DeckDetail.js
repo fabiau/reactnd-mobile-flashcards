@@ -37,6 +37,7 @@ function DeckDetail({
         <Button
           onPress={onStartQuizPress}
           style={styles.button}
+          disabled={!deck.cards?.length}
           mode="contained"
           icon={(props) => <Ionicons name="play" {...props} />}
         >
