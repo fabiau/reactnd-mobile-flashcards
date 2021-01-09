@@ -13,12 +13,14 @@ export function getNow() {
 export function* rescheduleDailyNotification({
   identifier = 'default',
   content: { title, body },
-  trigger: { hour = 20, minute = 0 },
 } = {}) {
   try {
     const { status } = yield call(askPermission);
     if (status === Permissions.PermissionStatus.GRANTED) {
       const now = yield call(getNow);
+      // Set the notification for tomorrow 1 minute earlier
+      now.setMinutes(-1);
+
       yield call(Notifications.cancelScheduledNotificationAsync, identifier);
       yield call(Notifications.scheduleNotificationAsync, {
         identifier,
@@ -31,8 +33,8 @@ export function* rescheduleDailyNotification({
           vibrate: true,
         },
         trigger: {
-          hour,
-          minute,
+          hour: now.getHours(),
+          minute: now.getMinutes(),
           repeats: true,
         },
       });
