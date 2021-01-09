@@ -2,9 +2,17 @@
   "name": "reactnd-mobile-flashcards",
   "displayName": "reactnd-mobile-flashcards",
   "expo": {
-    "name": "reactnd-mobile-flashcards",
+    "name": "Mobile Flashcards",
+    "description": "React Nanodegree Project: Mobile Flashcards",
     "slug": "reactnd-mobile-flashcards",
+    "sdkVersion": "~40.0.0",
     "version": "1.0.0",
+    "platforms": [
+      "android"
+    ],
+    "githubUrl": "https://github.com/fabiau/reactnd-mobile-flashcards",
+    "orientation": "portrait",
+    "primaryColor": "#4F46E5",
     "assetBundlePatterns": [
       "**/*"
     ],
