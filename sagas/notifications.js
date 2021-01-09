@@ -12,7 +12,7 @@ export function getNow() {
 
 export function* rescheduleDailyNotification({
   identifier = 'default',
-  content: { title, body },
+  content: { title, body } = {},
 } = {}) {
   try {
     const { status } = yield call(askPermission);

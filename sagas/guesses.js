@@ -15,7 +15,6 @@ import { rescheduleDailyNotification } from './notifications';
 import { LocalNotifications } from '../constants/notifications';
 
 export function* isQuizComplete(cardSubmitted) {
-  // TODO: Implement tests
   const guesses = yield select(getGuesses);
   const decks = yield select(getDecks);
   return (
